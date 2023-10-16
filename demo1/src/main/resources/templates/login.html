@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录</title>
+  <style>
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cube-loader {
+      position: absolute;
+      top: calc(13% - 37.5px); /* 垂直居中 */
+      left: calc(50% - 37.5px); /* 水平居中 */
+      /* u can choose any size */
+      width: 75px;
+      height: 75px;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      -webkit-transform: rotateX(-30deg);
+      transform: rotateX(-30deg);
+      -webkit-animation: animate 4s linear infinite;
+      animation: animate 4s linear infinite;
+      z-index: 1; /* 确保在 .container 上面 */
+    }
+
+    @-webkit-keyframes animate {
+      0% {
+        -webkit-transform: rotateX(-30deg) rotateY(0);
+        transform: rotateX(-30deg) rotateY(0);
+      }
+      100% {
+        -webkit-transform: rotateX(-30deg) rotateY(360deg);
+        transform: rotateX(-30deg) rotateY(360deg);
+      }
+    }
+
+    @keyframes animate {
+      0% {
+        -webkit-transform: rotateX(-30deg) rotateY(0);
+        transform: rotateX(-30deg) rotateY(0);
+      }
+      100% {
+        -webkit-transform: rotateX(-30deg) rotateY(360deg);
+        transform: rotateX(-30deg) rotateY(360deg);
+      }
+    }
+
+    .cube-loader .cube-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+
+    .cube-loader .cube-wrapper .cube-span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      /* width 75px / 2 = 37.5px */
+      -webkit-transform: rotateY(calc(90deg * var(--i))) translateZ(37.5px);
+      transform: rotateY(calc(90deg * var(--i))) translateZ(37.5px);
+      background: -webkit-gradient(
+              linear,
+              left top, left bottom,
+              from(hsl(330, 3.13%, 25.1%)),
+              color-stop(5.5%, hsl(177.27, 21.71%, 32.06%)),
+              color-stop(12.1%, hsl(176.67, 34.1%, 36.88%)),
+              color-stop(19.6%, hsl(176.61, 42.28%, 40.7%)),
+              color-stop(27.9%, hsl(176.63, 48.32%, 43.88%)),
+              color-stop(36.6%, hsl(176.66, 53.07%, 46.58%)),
+              color-stop(45.6%, hsl(176.7, 56.94%, 48.91%)),
+              color-stop(54.6%, hsl(176.74, 62.39%, 50.91%)),
+              color-stop(63.4%, hsl(176.77, 69.86%, 52.62%)),
+              color-stop(71.7%, hsl(176.8, 76.78%, 54.08%)),
+              color-stop(79.4%, hsl(176.83, 83.02%, 55.29%)),
+              color-stop(86.2%, hsl(176.85, 88.44%, 56.28%)),
+              color-stop(91.9%, hsl(176.86, 92.9%, 57.04%)),
+              color-stop(96.3%, hsl(176.88, 96.24%, 57.59%)),
+              color-stop(99%, hsl(176.88, 98.34%, 57.93%)),
+              to(hsl(176.89, 99.07%, 58.04%))
+      );
+      background: linear-gradient(
+              to bottom,
+              hsl(330, 3.13%, 25.1%) 0%,
+              hsl(177.27, 21.71%, 32.06%) 5.5%,
+              hsl(176.67, 34.1%, 36.88%) 12.1%,
+              hsl(176.61, 42.28%, 40.7%) 19.6%,
+              hsl(176.63, 48.32%, 43.88%) 27.9%,
+              hsl(176.66, 53.07%, 46.58%) 36.6%,
+              hsl(176.7, 56.94%, 48.91%) 45.6%,
+              hsl(176.74, 62.39%, 50.91%) 54.6%,
+              hsl(176.77, 69.86%, 52.62%) 63.4%,
+              hsl(176.8, 76.78%, 54.08%) 71.7%,
+              hsl(176.83, 83.02%, 55.29%) 79.4%,
+              hsl(176.85, 88.44%, 56.28%) 86.2%,
+              hsl(176.86, 92.9%, 57.04%) 91.9%,
+              hsl(176.88, 96.24%, 57.59%) 96.3%,
+              hsl(176.88, 98.34%, 57.93%) 99%,
+              hsl(176.89, 99.07%, 58.04%) 100%
+      );
+    }
+
+    .cube-top {
+      position: absolute;
+      width: 75px;
+      height: 75px;
+      background: hsl(330, 3.13%, 25.1%) 0%;
+      /* width 75px / 2 = 37.5px */
+      -webkit-transform: rotateX(90deg) translateZ(37.5px);
+      transform: rotateX(90deg) translateZ(37.5px);
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2>登录</h2>
+  <form action="/login" method="post">
+    <div class="form-group">
+      <label for="username">用户名：</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div class="form-group">
+      <label for="password">密码：</label>
+      <input type="password" id="password" name="password"   autocomplete="off">
+    </div>
+    <div class="form-group">
+      <input type="submit" value="登录">
+    </div>
+  </form>
+  <span id="loginMessageElement" th:attr="data-loginMessage=${loginMessage}"></span>
+</div>
+<div class="cube-loader">
+  <div class="cube-top"></div>
+  <div class="cube-wrapper">
+    <span style="--i:0" class="cube-span"></span>
+    <span style="--i:1" class="cube-span"></span>
+    <span style="--i:2" class="cube-span"></span>
+    <span style="--i:3" class="cube-span"></span>
+  </div>
+</div>
+<script>
+  const loginMessageElement = document.getElementById("loginMessageElement");
+  // 从 data-loginMessage 属性中获取消息
+  const loginMessage = loginMessageElement.getAttribute("data-loginMessage");
+  // 显示消息
+  if (loginMessage !== null) {
+    // 显示消息
+    alert(loginMessage);
+  } else {
+    // loginMessage 为 null，不执行任何操作
+  }
+</script>
+</body>
+
+
+</html>
